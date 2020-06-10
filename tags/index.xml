@@ -7,55 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Writing by  &lt;a href=&#39;https://twitter.com/sofborga&#39;&gt;@sofborga&lt;/a&gt; with &lt;a href=&#39;https://github.com/siegerts/hugo-theme-basic&#39;&gt;Hugo Theme Basic&lt;/a&gt; by &lt;a href=&#39;https://twitter.com/siegerts&#39;&gt;@siegerts&lt;/a&gt;.</copyright>
-    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://sofiaborga.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>emacs,</title>
-      <link>https://sofiaborga.github.io/tags/emacs/</link>
-      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://sofiaborga.github.io/tags/emacs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>howto,</title>
-      <link>https://sofiaborga.github.io/tags/howto/</link>
-      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://sofiaborga.github.io/tags/howto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://sofiaborga.github.io/tags/hugo/</link>
-      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://sofiaborga.github.io/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Demo</title>
-      <link>https://sofiaborga.github.io/tags/demo/</link>
-      <pubDate>Mon, 27 Apr 2020 16:12:09 +0200</pubDate>
-      
-      <guid>https://sofiaborga.github.io/tags/demo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Typography</title>
-      <link>https://sofiaborga.github.io/tags/typography/</link>
-      <pubDate>Mon, 27 Apr 2020 16:12:09 +0200</pubDate>
-      
-      <guid>https://sofiaborga.github.io/tags/typography/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

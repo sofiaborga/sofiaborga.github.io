@@ -7,39 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Writing by  &lt;a href=&#39;https://twitter.com/sofborga&#39;&gt;@sofborga&lt;/a&gt; with &lt;a href=&#39;https://github.com/siegerts/hugo-theme-basic&#39;&gt;Hugo Theme Basic&lt;/a&gt; by &lt;a href=&#39;https://twitter.com/siegerts&#39;&gt;@siegerts&lt;/a&gt;.</copyright>
-    <lastBuildDate>Tue, 09 Jun 2020 14:04:48 +0200</lastBuildDate>
     
 	<atom:link href="https://sofiaborga.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Who is Sofia?</title>
-      <link>https://sofiaborga.github.io/about/</link>
-      <pubDate>Tue, 09 Jun 2020 14:04:48 +0200</pubDate>
-      
-      <guid>https://sofiaborga.github.io/about/</guid>
-      <description>Interests  Asking and answering quetsions about the nature of the world Data Science and statistics Emacs Finding out how things work and teaching others about it Flow (psychology) Machine learning Mathematics Programming Python Rock climbing (= more problem solving, yay!) Tinkering  Project highlights    Khan Academy Swedish (present) Translation of Khan Academy&amp;rsquo;s awesome math content to Swedish, my native language.
-  Data Scientist with Python track @ DataCamp (present) Good refresher of skills from physics in a data science context.</description>
-    </item>
-    
-    <item>
-      <title>Org-post test</title>
-      <link>https://sofiaborga.github.io/post/org-post-test/</link>
-      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://sofiaborga.github.io/post/org-post-test/</guid>
-      <description> This is the first heading   Followed by some text! And this is the second   We can use org-modes emphasis markers like bold, italic, literal, and of course links! Ok, how about some code!?   First, let&amp;#39;s try a standard org-babel src block with Python code: print(&amp;#34;I &amp;lt;3 Python&amp;#34;)  </description>
-    </item>
-    
-    <item>
-      <title>Markdown Test</title>
-      <link>https://sofiaborga.github.io/post/markdown-test/</link>
-      <pubDate>Mon, 27 Apr 2020 16:12:09 +0200</pubDate>
-      
-      <guid>https://sofiaborga.github.io/post/markdown-test/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- An apple is a sweet, edible fruit produced by an apple tree (Malus pumila).</description>
-    </item>
     
   </channel>
 </rss>
