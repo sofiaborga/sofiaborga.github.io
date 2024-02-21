@@ -16,9 +16,11 @@
 (weblorg-site
  :template-vars '(("site_name" . "This week I learned...")
                   ("site_owner" . "owner@mail.com (owner)")
-                  ("site_description" . "A small blog about things I learned this week.")))
+                  ("site_description" . "A small blog about things I learned this week."))
+ :theme nil)
 
 (setq weblorg-default-url "http://localhost:8080")
+
 
 ;; route for rendering each post
 (weblorg-route
@@ -58,5 +60,6 @@
 (weblorg-copy-static
  :output "output/static/{{ file }}"
  :url "/static/{{ file }}")
+
 
 (weblorg-export)
