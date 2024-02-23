@@ -17,8 +17,8 @@
     <link>http://localhost:8080/</link>
     <description><![CDATA[]]></description>
     <language>en</language>
-    <pubDate></pubDate>
-    <lastBuildDate>Mi, 21 Feb 2024 10:53:33 +0100</lastBuildDate>
+    <pubDate>Fr, 23 Feb 2024 00:00:00 +0100</pubDate>
+    <lastBuildDate>Fr, 23 Feb 2024 09:12:38 +0100</lastBuildDate>
     <generator>weblorg 0.1.0 (https://emacs.love/weblorg)</generator>
     <webMaster>web@master (Blog Author)</webMaster>
     <image>
@@ -31,8 +31,10 @@
     <item>
       <title>Org feature test</title>
       <link>http://localhost:8080/posts/org-feature-test.html</link>
-      <author>Sofia</author>
+      <author>author@mail.com (Blog Author)</author>
       <guid isPermaLink="false">http://localhost:8080/posts/org-feature-test.html</guid>
+      
+        <pubDate>Fr, 23 Feb 2024 00:00:00 +0100</pubDate>
       
       <description><![CDATA[<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>

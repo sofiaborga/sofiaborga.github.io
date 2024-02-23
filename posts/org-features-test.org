@@ -1,5 +1,6 @@
 #+TITLE: Org feature test
-#+AUTHOR: Sofia
+#+DATE: <2024-02-23 Fri>
+#+FILETAGS: :test:emacs:org-mode:
 
 * Heading 1
 ** Heading 2
