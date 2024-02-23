@@ -40,12 +40,12 @@
  :url "/")
 
 ;; route for rendering each page
-(weblorg-route
- :name "pages"
- :input-pattern "pages/*.org"
- :template "page.html"
- :output "output/{{ slug }}.html"
- :url "/{{ slug }}.html")
+;; (weblorg-route
+;;  :name "pages"
+;;  :input-pattern "pages/*.org"
+;;  :template "page.html"
+;;  :output "output/{{ slug }}.html"
+;;  :url "/{{ slug }}.html")
 
 ;; generate rss feed
 (weblorg-route
