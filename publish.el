@@ -27,7 +27,7 @@
  :name "posts"
  :input-pattern "posts/*.org"
  :template "post.html"
- :output "output/posts/{{ slug }}.html"
+ :output "public/posts/{{ slug }}.html"
  :url "/posts/{{ slug }}.html")
 
 ;; route for rendering the index page with a list of posts
@@ -36,7 +36,7 @@
  :input-pattern "posts/*.org"
  :input-aggregate #'weblorg-input-aggregate-all-desc
  :template "blog.html"
- :output "output/index.html"
+ :output "public/index.html"
  :url "/")
 
 ;; route for rendering each page
@@ -44,7 +44,7 @@
 ;;  :name "pages"
 ;;  :input-pattern "pages/*.org"
 ;;  :template "page.html"
-;;  :output "output/{{ slug }}.html"
+;;  :output "public/{{ slug }}.html"
 ;;  :url "/{{ slug }}.html")
 
 ;; generate rss feed
@@ -53,12 +53,12 @@
  :input-pattern "posts/*.org"
  :input-aggregate #'weblorg-input-aggregate-all-desc
  :template "feed.xml"
- :output "output/feed.xml"
+ :output "public/feed.xml"
  :url "/feed.xml")
 
 ;; route for static assets that also copies files to output directory
 (weblorg-copy-static
- :output "output/static/{{ file }}"
+ :output "public/static/{{ file }}"
  :url "/static/{{ file }}")
 
 
