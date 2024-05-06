@@ -1,6 +1,8 @@
 #+TITLE: Org feature test
 #+DATE: <2024-02-23 Fri>
+#+OPTIONS: toc:nil num:nil
 #+FILETAGS: :test:emacs:org-mode:
+
 
 * Heading 1
 ** Heading 2
