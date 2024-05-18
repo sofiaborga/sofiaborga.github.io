@@ -10,8 +10,7 @@
   :ensure t
   :config
   (setq org-html-htmlize-output-type 'css))
-
-(require 'weblorg)
+(use-package weblorg :ensure t)
 
 (weblorg-site
  :template-vars '(("site_name" . "This week I learned...")
