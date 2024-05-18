@@ -30,4 +30,3 @@ jobs:
         with:
           branch: gh-pages
           folder: public
-          ssh-key: ${ secrets.PERMISSION_TO_PUBLISH }
