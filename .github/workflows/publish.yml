@@ -1,0 +1,31 @@
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ENV: prod
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install Emacs
+        uses: purcell/setup-emacs@v6
+	with:
+	  version: 29.2
+
+      - name: Build the site
+      	run: echo "Running in env: $ENV"
+        run: emacs --script $GITHUB_WORKSPACE/publish.el
+
+      - name: Publish generated content to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: public

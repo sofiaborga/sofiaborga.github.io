@@ -15,11 +15,13 @@
 
 (weblorg-site
  :template-vars '(("site_name" . "This week I learned...")
-                  ("site_owner" . "owner@mail.com (owner)")
                   ("site_description" . "A small blog about things I learned this week."))
  :theme nil)
 
-(setq weblorg-default-url "http://localhost:8080")
+(if (string= (getenv "ENV") "prod")
+    (setq weblorg-default-url "https://sofiaborga.github.io"))
+(if (string= (getenv "ENV") "local")
+    (setq weblorg-default-url "http://guinho.local:8080"))
 
 
 ;; route for rendering each post
