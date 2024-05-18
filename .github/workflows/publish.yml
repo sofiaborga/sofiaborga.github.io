@@ -17,12 +17,13 @@ jobs:
 
       - name: Install Emacs
         uses: purcell/setup-emacs@v6
-	with:
-	  version: 29.2
+        with:
+          version: 29.2
 
       - name: Build the site
-      	run: echo "Running in env: $ENV"
-        run: emacs --script $GITHUB_WORKSPACE/publish.el
+        run: |
+          echo "Running in env: $ENV"
+          emacs --script $GITHUB_WORKSPACE/publish.el
 
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
