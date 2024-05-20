@@ -37,6 +37,8 @@
 (weblorg-route
  :name "index"
  :input-pattern "posts/*.org"
+ :input-filter (when (string= (getenv "ENV") "prod")
+		 #'weblorg-input-filter-drafts)
  :input-aggregate #'weblorg-input-aggregate-all-desc
  :template "blog.html"
  :output "public/index.html"
