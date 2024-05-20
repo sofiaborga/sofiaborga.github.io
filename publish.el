@@ -20,13 +20,15 @@
 (if (string= (getenv "ENV") "prod")
     (setq weblorg-default-url "https://sofiaborga.github.io"))
 (if (string= (getenv "ENV") "local")
-    (setq weblorg-default-url "http://guinho.local:8080"))
+    (setq weblorg-default-url "http://localhost:8080"))
 
 
 ;; route for rendering each post
 (weblorg-route
  :name "posts"
  :input-pattern "posts/*.org"
+ :input-filter (when (string= (getenv "ENV") "prod")
+		   #'weblorg-input-filter-drafts)
  :template "post.html"
  :output "public/posts/{{ slug }}.html"
  :url "/posts/{{ slug }}.html")
@@ -49,13 +51,13 @@
 ;;  :url "/{{ slug }}.html")
 
 ;; generate rss feed
-(weblorg-route
- :name "feed"
- :input-pattern "posts/*.org"
- :input-aggregate #'weblorg-input-aggregate-all-desc
- :template "feed.xml"
- :output "public/feed.xml"
- :url "/feed.xml")
+;; (weblorg-route
+;;  :name "feed"
+;;  :input-pattern "posts/*.org"
+;;  :input-aggregate #'weblorg-input-aggregate-all-desc
+;;  :template "feed.xml"
+;;  :output "public/feed.xml"
+;;  :url "/feed.xml")
 
 ;; route for static assets that also copies files to output directory
 (weblorg-copy-static
