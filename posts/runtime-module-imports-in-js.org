@@ -2,7 +2,6 @@
 #+DATE: <2024-05-30 Thu>
 #+OPTIONS: toc:nil num:nil
 #+FILETAGS: :javascript:frontend:
-#+DRAFT: nil
 
 The "standard" way of including js modules in your app is to bundle them together with the script that loads the app. This means that the code of the module is quite literally included in the final bundle. I was recently introduced to a client's /microfrontend/ application at work where I learned about an alternative way to do this using SystemJS. To understand what SystemJS does though, it is necessary to first understand some different ways that we can include external modules into our frontend app.
 
