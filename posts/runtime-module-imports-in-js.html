@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="utf-8">
+    <title>
+      TWIL
+      
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
+    
+  <meta property="og:title" content="Runtime module imports in JS">
+  <meta property="og:url" content="https://sofiaborga.github.io/posts/runtime-module-imports-in-js.html">
+  
+  
+  <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="https://sofiaborga.github.io/static/style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+  </head>
+  <body>
+    
+    
+      <header>
+        <h1>
+          <a href="https://sofiaborga.github.io/">
+            This week I learned
+          </a>
+        </h1>
+        <a href="#main" class="visually-hidden">jump to main content</a>
+      </header>
+    
+
+    
+    <main id="main">
+      
+  <article class="post">
+    <h1 class="post__title">
+      Runtime module imports in JS
+    </h1>
+    <section class="post__meta">
+      
+        May 30, 2024
+      
+    </section>
+    <section>
+      <p>
+The "standard" way of including js modules in your app is to bundle them together with the script that loads the app. This means that the code of the module is quite literally included in the final bundle. I was recently introduced to a client's <i>microfrontend</i> application at work where I learned about an alternative way to do this using SystemJS. To understand what SystemJS does though, it is necessary to first understand some different ways that we can include external modules into our frontend app.
+</p>
+
+<div id="outline-container-runtime-vs-build-time-modules" class="outline-2">
+<h2 id="runtime-vs-build-time-modules">Runtime vs build-time modules</h2>
+<div class="outline-text-2">
+<p>
+You have probably seen this pattern of importing modules into a frontend application before:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> React from <span class="org-string">'react'</span>;
+<span class="org-keyword">import</span> ReactDOM from <span class="org-string">'react-dom'</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">do stuff that uses React</span>
+</pre>
+</div>
+
+<p>
+with the corresponding package.json (somewhat simplified):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">{
+   <span class="org-string">"blabla"</span>: ...,
+   <span class="org-string">"dependencies"</span>: {
+      <span class="org-string">"react"</span>: <span class="org-string">"^17.0.2"</span>,
+      <span class="org-string">"react-dom"</span>: <span class="org-string">"^17.0.2"</span>,
+   }
+}
+</pre>
+</div>
+
+<p>
+Running <code>npm install</code> will download the source code of those dependencies into <code>node_modules</code> and running <code>npm build</code> (or similar, depending on your configuration and what package manager you use) will create a single bundle. The bundle includes both your own application code and the source code of your dependencies in a single self-contained javascript file, which is optimised for sending over the internet and being interpreted by the browsers of your users. React and React DOM in the example can of course be any ES module. These modules can be referred to as <b>build-time modules</b>, since they are included in an application during the build step.
+</p>
+
+<p>
+The other potential option that I learned about recently is to actually include those modules first at runtime, which is when the code is running inside the browser in the case of most frontend applications. That means that there is no build step necessary per se for including external modules (although you might want one for other reasons), and that these can be loaded as needed rather than all at once. These modules are sometimes referred to as <b>runtime</b> or <b>browser modules</b>, since the browser is a javascript runtime.
+</p>
+
+<p>
+The arguably easiest way to import modules at runtime is to simply use the full URL as the import identifier, for common packages there are CDNs like jsDelivr that offer pre-built bundles. Our App.js file might then look something like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> React from <span class="org-string">'https://cdn.jsdelivr.net/npm/react@18.2.0/+esm'</span>;
+<span class="org-keyword">import</span> ReactDOM from <span class="org-string">'https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm'</span>;
+
+<span class="org-keyword">const</span> <span class="org-variable-name">name</span> = <span class="org-string">'In-Browser React!!'</span>
+
+ReactDOM.render(React.createElement(<span class="org-string">'div'</span>, <span class="org-constant">null</span>, <span class="org-string">`Hello ${name}!`</span>), document.getElementById(<span class="org-string">'root'</span>));
+</pre>
+</div>
+
+<p>
+We can include our app in a script tag with <code>type="module"</code>. This works since most browsers have had support for ES modules for <a href="https://caniuse.com/es6-module">some years now</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-keyword">!DOCTYPE</span> html&gt;
+&lt;<span class="org-function-name">html</span>&gt;
+  &lt;<span class="org-function-name">head</span>&gt;
+    &lt;<span class="org-function-name">title</span>&gt;<span class="org-underline"><span class="org-bold">Hello In-Browser React</span></span>&lt;/<span class="org-function-name">title</span>&gt;
+    &lt;<span class="org-function-name">meta</span> <span class="org-variable-name">charset</span>=<span class="org-string">"utf-8"</span>&gt;
+  &lt;/<span class="org-function-name">head</span>&gt;
+  &lt;<span class="org-function-name">body</span>&gt;
+    &lt;<span class="org-function-name">div</span> <span class="org-variable-name">id</span>=<span class="org-string">"root"</span>&gt;
+        <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">app renders here&lt;!--</span><span class="org-comment-delimiter">  --&gt;</span>
+    &lt;/<span class="org-function-name">div</span>&gt;
+    &lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">"module"</span> <span class="org-variable-name">src</span>=<span class="org-string">"./App.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+  &lt;/<span class="org-function-name">body</span>&gt;
+&lt;/<span class="org-function-name">html</span>&gt;
+</pre>
+</div>
+
+<p>
+If you serve a directory with two files like these and watch the network tab while loading, you should see <code>index.html</code> and <code>App.js</code> load first, followed by one request for each of the externally loaded dependencies.
+</p>
+</div>
+</div>
+
+<div id="outline-container-enter-the-import-map" class="outline-2">
+<h2 id="enter-the-import-map">Enter the import map</h2>
+<div class="outline-text-2">
+<p>
+This works, but one could imagine our JS files looking cluttered pretty quickly. We can simplify our imports by introducing an <b>import-map</b>, which is a simple JSON object that maps identifiers to URLs for the imports we would like to use. We can do this by simply adding a script tag of <code>type=importmap</code> that contains our map to <code>index.html</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">"importmap"</span>&gt;
+  {
+    "imports": {
+      "react": "https://cdn.jsdelivr.net/npm/react@18.2.0/+esm",
+      "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm"
+    }
+  }
+&lt;/<span class="org-function-name">script</span>&gt;
+</pre>
+</div>
+
+<p>
+Now we can go back to importing the modules by using only their identifiers, like in the first example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> React from <span class="org-string">'react'</span>;
+<span class="org-keyword">import</span> ReactDOM from <span class="org-string">'react-dom'</span>;
+
+
+<span class="org-keyword">const</span> <span class="org-variable-name">name</span> = <span class="org-string">'Import-map React!!'</span>
+
+ReactDOM.render(React.createElement(<span class="org-string">'div'</span>, <span class="org-constant">null</span>, <span class="org-string">`Hello ${name}!`</span>), document.getElementById(<span class="org-string">'root'</span>));
+
+</pre>
+</div>
+
+<p>
+When serving the files with these modifications you should see the same sequence of network request as before. Although the specification has been around for a while, import maps <a href="https://caniuse.com/import-maps">gained widespread browser support first in 2023</a>. To obtain support prior to that it was necessary to use an external library like SystemJS, which adds some overhead comparison to the browser-native option.
+</p>
+</div>
+</div>
+
+<div id="outline-container-why-bother-with-runtime-modules" class="outline-2">
+<h2 id="why-bother-with-runtime-modules">Why bother with runtime modules?</h2>
+<div class="outline-text-2">
+<p>
+I admit that the examples above are quite trivial, so you might ask what the benefits of all this are. For a typical monolithic frontend app they are probably insignificant. When there are multiple teams working within the same application however, it can be tempting to split the codebase up in order for teams to be less dependent on each others work.
+</p>
+
+<p>
+Imagine you split the codebase into one library for each team and import them into the joint application when building for production. This means that in order to get a tiny fix for the codebase of team A into production, the release pipeline will have to build and run <b>all</b> of the teams' code. As the number of teams and the complexity of the application increase, this can turn really complicated since the coupling removed by developing independently is reintroduced in the release process. If you ever worked in this setting and had to get two PRs in different libraries through in order get a new feature into production you know what I'm talking about&#x2026; This problem isn't unique to frontend development, I have experienced it when working on a mobile app and it is a known problem for microservices too.
+</p>
+
+<p>
+The solution is to not integrate at build time at all. This is where runtime modules can be useful for frontend applications. Instead of bundling in the build step, the  modules or <i>microfrontends</i> import or call each other only at runtime.
+</p>
+</div>
+</div>
+
+    </section>
+  </article>
+
+    </main>
+
+    
+    
+    <footer>
+      <!-- <a href="@test@server" alt="Mastodon"> -->
+      <!--   <span class="fa-brands fa-mastodon"></span> -->
+      <!-- </a> -->
+      <a href="https://github.com/sofiaborga" target="_blank" alt="Github">
+        <span class="fa-brands fa-github-alt"></span>
+      </a>
+      <!-- <a href="/feed.xml" alt="RSS feed"> -->
+      <!--   <span class="fa-solid fa-square-rss"></span> -->
+      <!-- </a> -->
+      <br>
+        Made with &#x2665; and&nbsp;
+        <a href="https://emacs.love/weblorg" target="_blank">
+          weblorg
+        </a>
+      </footer>
+    
+
+  </body>
+</html>
