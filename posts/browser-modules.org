@@ -1,0 +1,124 @@
+#+TITLE: Runtime module imports in JS
+#+DATE: <2024-05-30 Thu>
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :javascript:frontend:
+#+DRAFT: t
+
+js supports importing modules from url at runtime. since the browser is a js runtime I guess this shouldn't be too surprising given that it supports loading assest and scripts using script tags within HTML but I was still kind of surprised since im used to building monolithiv fronend apps where any external modules and dependencies are bundled in to the app. Now that I think about it, i find it surprising that we bundle big dependencies to such a big extent, but im getting side tracked now.
+
+the 'standard' way of including js modules in your app is to bundle them together with the script that loads the app. This means that the code of the module is quite litterally included in the final bundle.
+
+maybe compare bundled react using the 'normal' way
+
+although browsers have supported native es6 modules for a while now, import maps became widely supported first in 2023
+
+key points i would like to get across:
+there is such a thing as modules included at runtime in js
+this is useful for decoupling parts of applications, eg for microfrontends
+using an import map make this much cleaner to use in each module
+what is an import map?
+example of using an import map
+
+can we inspect the module registry when using built in importmaps the same way as with syystem js?
+
+** Runtime vs build time modules
+You have probably seen this pattern of importing modules into a frontend application before:
+#+begin_src js
+  
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+
+  // do stuff that uses React
+
+#+end_src
+
+and the corresponding package.json (somewhat simplified)
+
+#+begin_src js
+  {
+ "blabla": ...,
+ "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+}
+}
+#+end_src
+
+Running npm install will download the source code of those dependencies into node_modules and running npm build (or similar, depending on your condfiguration and what package manager you use) will create a single bundle, including both your own application code and the source code of your depencencies into a single self contained js file which is optimised for sending over the internet and being understood by the browsers of your users. React and react dom can of course be any library or module. These moules can be refered to as *build-time modules*, since they are included in an application during the build step. (maybe example of what build output may look like)
+
+The other potential option that I learned about recently is to actually include those modules first at runtime, which is when the code is running inside the browser in the case of most frontend applications. That means that there is no build step necessary per se for including external modules (although you might want one for other reasons), and that these can be loaded as needed rather than all at once. (maybe include an example?)
+
+The most obvious? way to import modules at runtime is to simply use the full URL as the import identifier, for common packages there are CDNs like ... that offer prebuilt bundles. Our App.js file might then look something like this:
+
+#+begin_src js
+import React from 'https://cdn.jsdelivr.net/npm/react@18.2.0/+esm';
+import ReactDOM from 'https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm';
+
+const name = 'In-Browser React!!'
+
+ReactDOM.render(React.createElement('div', null, `Hello ${name}!`), document.getElementById('root'));
+#+end_src
+
+We can include our app in a script tag with type="module". This works since most browsers have had support for ES modules for [[https://caniuse.com/es6-module][some years now]].
+
+#+begin_src html
+  <!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello In-Browser React</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="root">
+        <!-- app renders here<!--  -->
+    </div>
+    <script type="module" src="./App.js"></script>
+  </body>
+</html>
+#+end_src
+
+If you serve a directory with two files like these and watch the network tab while loading, you should see index.html and App.js load first, followed by one request for each of the externally loaded dependencies.
+
+#+caption: Network requests made by the browser when loading external modules
+[[file:direct-browser-modules.png]]
+
+*** Enter the import map
+This works, but one could imagine our JS files looking cluttered pretty quickly. We can simplify our imports by introducing an *import-map*, which is a simple JSON object that maps identifiers to URLs for the imports we would like to use. We can do this by simply adding a script tag of type=importmap that contains our map to index.html:
+
+#+begin_src html
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://cdn.jsdelivr.net/npm/react@18.2.0/+esm",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm"
+      }
+    }
+  </script>
+#+end_src
+
+Now we can go back to importing the modules by using only their identifiers, like in the first example:
+
+#+begin_src js
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+
+
+  const name = 'Import-map React!!'
+
+  ReactDOM.render(React.createElement('div', null, `Hello ${name}!`), document.getElementById('root'));
+
+#+end_src
+
+When serving the files with these modifications you should see the same sequence of network request as before (?). Although the specification has been around for a while, import maps [[https://caniuse.com/import-maps][gained widespread browsersupport first in 2023]]. To obtain support prior to that it was necessary to use an external library like SystemJS, which did add some overhead comparison to the built-in version.
+
+
+*** relation to MFES
+
+*** SystemJS api for debugging MFE loading
+is this actually possible when using built-in import maps?
+
+** Enter the import map
+
+*** what it is
+
+*** example
