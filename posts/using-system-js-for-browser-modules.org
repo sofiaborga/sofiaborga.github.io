@@ -1,0 +1,8 @@
+#+TITLE: Using SystemJS for browser modules
+#+DATE: <2024-05-30 Thu>
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :javascript:frontend:
+#+DRAFT: t
+
+*** SystemJS api for debugging MFE loading
+is this actually possible when using built-in import maps?
